@@ -16,12 +16,42 @@ This example is taken from the `sample ERC20 contract <https://github.com/ethere
     Approval: event({_owner: indexed(address), _spender: indexed(address), _value: uint256})
 
     # Transfer some tokens from message sender to another address
-    def transfer(_to : address, _value : uint256) -> bool:
+    @public
+    def transfer(_to : address, _value : uint256):
 
-       ... Logic here to do the real work ...
+       # ... Logic here to do the real work ...
 
        # All done, log the event for listeners
-       log.Transfer(msg.sender, _to, _amount)
+       log.Transfer(msg.sender, _to, _value)
+
+
+.. testcode:: vy
+    :hide:
+
+    import vyper
+
+    source_code = """# Events of the token.
+    Transfer: event({_from: indexed(address), _to: indexed(address), _value: uint256})
+    Approval: event({_owner: indexed(address), _spender: indexed(address), _value: uint256})
+
+    # Transfer some tokens from message sender to another address
+    @public
+    def transfer(_to : address, _value : uint256):
+
+       # ... Logic here to do the real work ...
+
+       # All done, log the event for listeners
+       log.Transfer(msg.sender, _to, _value)"""
+
+    if vyper.compile_code(source_code):
+        print("successfully compiled")
+
+
+.. testoutput:: vy
+    :hide:
+
+    successfully compiled
+
 
 Let's look at what this is doing. First, we declare two event types to log. The two events are similar in that they contain
 two indexed address fields. Indexed fields do not make up part of the event data itself, but can be searched by clients that
