@@ -4,6 +4,7 @@ if "%1"=="test" goto :test
 if "%1"=="dev-deps" goto :dev-deps
 if "%1"=="lint" goto :lint
 if "%1"=="docs" goto :docs
+if "%1"=="doctest" goto :doctest
 if "%1"=="clean" goto :clean
 if "%1"=="clean-build" goto :clean-build
 if "%1"=="clean-pyc" goto :clean-pyc
@@ -13,8 +14,8 @@ if "%1"=="" goto :init
 
 :error
 echo Unknown parameters: %*
-echo Expected: init test lint clean clean-pyc clean-build clean-test docs
-rem echo Expect: test lint clean clean-pyc clean-build clean-test docs docker-build
+echo Expected: init test lint clean clean-pyc clean-build clean-test docs doctest
+rem echo Expect: test lint clean clean-pyc clean-build clean-test docs doctest docker-build
 goto :end
 
 :init
@@ -37,6 +38,10 @@ goto :end
 CALL docs\make clean
 CALL docs\make html
 START docs\_build\html\index.html
+goto :end
+
+:doctest
+CALL docs\make doctest
 goto :end
 
 :clean
