@@ -20,6 +20,8 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+import doctest
+
 from recommonmark.parser import CommonMarkParser
 
 # TO DO - Create and Implement Vyper Lexer
@@ -183,3 +185,11 @@ source_parsers = {
 }
 
 source_suffix = ['.rst', '.md']
+
+doctest_default_flags = (
+        0
+        | doctest.DONT_ACCEPT_TRUE_FOR_1
+        | doctest.ELLIPSIS
+        | doctest.IGNORE_EXCEPTION_DETAIL
+        | doctest.NORMALIZE_WHITESPACE
+)
